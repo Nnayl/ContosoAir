@@ -3,36 +3,33 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
-#pool:
-#  vmImage: ubuntu-16.04
-#trigger:
-#  - master
-#steps:
-#  - task: Npm@1
-#    inputs:
-#      command: 'custom'
-#      customcommand: 'install --production'
-#  - script: 'npm test'
-#    displayName: 'Run unit tests'
-#    continueOnError: true
+
+# pool:
+#   vmImage: ubuntu-16.04
+#  trigger:
+#   - master
+#  steps:
+#   - task: Npm@1
+#     inputs:
+#       command: 'custom'
+#       customcommand: 'install --production'
+#   - script: 'npm test'
+#     displayName: 'Run unit tests'
+#     continueOnError: true
+
 
 pool:
-  vmImage: vs2017-win2016
-  name: Azure Pipelines
-  demands: npm
-
+ vmImage: ubuntu-16.04
+trigger:
+ - master
 steps:
   - task: Npm@1
-    displayName: 'npm install'
     inputs:
-      verbose: false
-
-  - task: Npm@1
-    displayName: 'npm test'
-    inputs:
-      command: custom
-      verbose: false
-      customCommand: 'run test'
+      command: 'custom'
+      customcommand: 'install --production'
+  - script: 'npm test'
+    displayName: 'Run unit tests'
+    continueOnError: true
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
     condition: succeededOrFailed()
