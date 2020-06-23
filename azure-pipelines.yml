@@ -17,6 +17,7 @@
 #    continueOnError: true
 
 pool:
+  vmImage: vs2017-win2016
   name: Azure Pipelines
   demands: npm
 
